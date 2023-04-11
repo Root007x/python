@@ -1,14 +1,14 @@
 def get_processes(n):
     processes = []
     for i in range(n):
-        arrival_time, burst_time, priority = map(int, input(f"Enter arrival time, burst time, and priority for process {i+1}: ").split())
+        arrival_time, burst_time, priority = map(int, input(
+            f"Enter arrival time, burst time, and priority for process {i+1}: ").split())
         if arrival_time < 0 or burst_time <= 0 or priority < 1:
             print("Invalid input. Arrival time must be non-negative, burst time must be positive, and priority must be greater than or equal to 1.")
             return None
         processes.append((i+1, arrival_time, burst_time, priority))
     processes.sort(key=lambda x: (x[1], x[3], x[2]))
     return processes
-
 
 
 def find_next_process(processes, n, completed, current_time):
@@ -45,7 +45,8 @@ def priority_non_preemptive():
         else:
             completed[idx] = True
             completion_time = current_time + processes[idx][2]
-            waiting_time[idx] = completion_time - processes[idx][1] - processes[idx][2]
+            waiting_time[idx] = completion_time - \
+                processes[idx][1] - processes[idx][2]
             turnaround_time[idx] = completion_time - processes[idx][1]
             current_time = completion_time
 
@@ -56,10 +57,12 @@ def priority_non_preemptive():
 
     print("Process\tArrival Time\tBurst Time\tPriority\tCompletion Time\tTurnaround Time\tWaiting Time")
     for i in range(n):
-        completion = str(turnaround_time[i] + processes[i][1]) if completed[i] else 'NA'
+        completion = str(
+            turnaround_time[i] + processes[i][1]) if completed[i] else 'NA'
         turnaround = str(turnaround_time[i]) if completed[i] else 'NA'
         waiting = str(waiting_time[i]) if completed[i] else 'NA'
-        print(f"{processes[i][0]}\t\t{processes[i][1]}\t\t{processes[i][2]}\t\t{processes[i][3]}\t\t{completion}\t\t{turnaround}\t\t\t{waiting}")
+        print(
+            f"{processes[i][0]}\t\t{processes[i][1]}\t\t{processes[i][2]}\t\t{processes[i][3]}\t\t{completion}\t\t{turnaround}\t\t\t{waiting}")
 
     print(f"\nAverage Waiting Time = {avg_waiting_time:.2f}")
     print(f"Average Turnaround Time = {avg_turnaround_time:.2f}")
@@ -67,5 +70,3 @@ def priority_non_preemptive():
 
 if __name__ == '__main__':
     priority_non_preemptive()
-
-

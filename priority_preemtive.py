@@ -1,13 +1,15 @@
 def get_processes(n):
     processes = []
     for i in range(n):
-        arrival_time, burst_time, priority = map(int, input(f"Enter arrival time, burst time, and priority for process {i+1}: ").split())
+        arrival_time, burst_time, priority = map(int, input(
+            f"Enter arrival time, burst time, and priority for process {i+1}: ").split())
         if arrival_time < 0 or burst_time <= 0 or priority < 1:
             print("Invalid input. Arrival time must be non-negative, burst time must be positive, and priority must be greater than or equal to 1.")
             return None
         processes.append((i+1, arrival_time, burst_time, priority))
     processes.sort(key=lambda x: (x[1], x[3], x[2], x[0]))
     return processes
+
 
 def find_next_process(processes, n, completed, current_time):
     max_priority = float('inf')
@@ -40,7 +42,7 @@ def priority_preemptive():
     waiting_time = [0] * n
     turnaround_time = [0] * n
     remaining_bt = [processes[i][2] for i in range(n)]
-    
+
     while not all(completed):
         idx = find_next_process(processes, n, completed, current_time)
         if idx == -1:
@@ -54,7 +56,7 @@ def priority_preemptive():
                 turnaround_time[idx] = completion_time - processes[idx][1]
                 waiting_time[idx] = turnaround_time[idx] - processes[idx][2]
                 print(f"Complition Time : {completion_time}")
-            
+
     total_waiting_time = sum(waiting_time)
     total_turnaround_time = sum(turnaround_time)
     avg_waiting_time = total_waiting_time / n
@@ -63,7 +65,6 @@ def priority_preemptive():
     print(f"\nAverage Waiting Time = {avg_waiting_time:.2f}")
     print(f"Average Turnaround Time = {avg_turnaround_time:.2f}")
 
+
 if __name__ == '__main__':
     priority_preemptive()
-
-
